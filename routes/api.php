@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +14,15 @@ use Illuminate\Http\Request;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
+
+Route::resource("message", "MessageController");
+// We will handle create view and edit view by Angular
+Route::resource("codefile", "CodeFileController", [
+    'except' => 'create', 'edit'
+]);
+Route::resource("resourcefile", "ResourceFileController", [
+    'except' => 'create', 'edit'
+]);
+
+Route::get("search/message", "MessageController@search");
 

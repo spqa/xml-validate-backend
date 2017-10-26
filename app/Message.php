@@ -6,5 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    //
+    protected $table = "message";
+    protected $guarded = [];
+    protected $with = ["code_file", "resource_file"];
+
+    public function code_file()
+    {
+        return $this->belongsTo(CodeFile::class, "code_file_id");
+    }
+
+    public function resource_file()
+    {
+        return $this->belongsTo(ResourceFile::class, "resource_file_id");
+    }
 }

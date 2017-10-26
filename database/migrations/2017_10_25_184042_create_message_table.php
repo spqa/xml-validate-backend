@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateMessageTable extends Migration
 {
@@ -15,15 +15,15 @@ class CreateMessageTable extends Migration
     {
         Schema::create('message', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("file_name",50);
-            $table->string("ja",255);
-            $table->string("vi",255);
-            $table->string("en",255);
-            $table->string("final",255);
-            $table->boolean("applied");
-            $table->string("resource_file",50);
-            $table->string("message_key",100);
-            $table->integer('updated_by');
+            $table->string("ja", 255)->nullable(true);
+            $table->string("vi", 255)->nullable(true);
+            $table->string("en", 255)->nullable(true);
+            $table->string("final", 255)->nullable(true);
+            $table->boolean("applied")->default(false);
+            $table->integer("code_file_id")->index()->nullable(true);
+            $table->integer("resource_file_id")->index()->nullable(true);
+            $table->string("message_key", 100)->nullable(false);
+            $table->integer('updated_by')->nullable(true);
             $table->timestamps();
         });
     }
