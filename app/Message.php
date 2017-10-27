@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     protected $table = "message";
-    protected $guarded = [];
+    protected $fillable = ["ja", "vi", "en", "message_key", "final", "applied", "code_file_id", "resource_file_id"];
     protected $with = ["code_file", "resource_file"];
 
     public function code_file()

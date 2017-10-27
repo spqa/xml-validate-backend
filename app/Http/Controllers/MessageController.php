@@ -98,7 +98,6 @@ class MessageController extends Controller
     public function update(Request $request, Message $message)
     {
         $message->update($request->all());
-        $message->save();
         return response()->json([
             'error' => false,
             'message' => self::MESSAGE_UPDATE
