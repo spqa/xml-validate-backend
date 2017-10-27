@@ -83,7 +83,7 @@ class CodeFileController extends Controller
      */
     public function show(CodeFile $codefile)
     {
-        return $codefile;
+        return response()->json($codefile);
     }
 
     /**
