@@ -22,7 +22,7 @@ class ResourceFileController extends Controller
      */
     public function index()
     {
-        return ResourceFile::all();
+        return ResourceFile::orderBy("name")->get();
     }
 
     /**

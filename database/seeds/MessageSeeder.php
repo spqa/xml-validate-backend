@@ -12,13 +12,13 @@ class MessageSeeder extends Seeder
     public function run()
     {
 
-//        \App\CodeFile::create([
-//            'name'=>'menu.jsp'
-//        ]);
-//
-//        \App\ResourceFile::create([
-//            'name'=>'Menu.xml'
-//        ]);
+        \App\CodeFile::create([
+            'name'=>'menu.jsp'
+        ]);
+
+        \App\ResourceFile::create([
+            'name'=>'Menu.xml'
+        ]);
 //
 //        \App\Message::create([
 //            'ja'=>'ブランディング',

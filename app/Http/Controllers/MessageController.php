@@ -27,9 +27,9 @@ class MessageController extends Controller
         $perPage = request("perpage", 20);
         $codeFile = request("codefile");
         $resourceFile = request("resourcefile");
-        $queryBuilder = Message::orderBy("updated_at", "desc");
+        $queryBuilder = Message::orderBy("created_at", "desc");
         if ($applied) {
-            $queryBuilder->whereApplied($applied);
+            $queryBuilder->where("applied",$applied);
         }
         if ($codeFile) {
             $queryBuilder->where("code_file_id", $codeFile);
@@ -97,11 +97,19 @@ class MessageController extends Controller
      */
     public function update(Request $request, Message $message)
     {
-        $message->update($request->all());
-        return response()->json([
-            'error' => false,
-            'message' => self::MESSAGE_UPDATE
-        ]);
+        $result = $message->update($request->all());
+        if($result) {
+            return response()->json([
+                'error' => false,
+                'message' => self::MESSAGE_UPDATE
+            ]);
+        }else {
+            return response()->json([
+                'error' => true,
+                'message' => "Update Error!"
+            ]);
+        }
+
     }
 
     /**

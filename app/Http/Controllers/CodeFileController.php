@@ -22,7 +22,7 @@ class CodeFileController extends Controller
      */
     public function index()
     {
-        return CodeFile::all();
+        return CodeFile::orderBy("name")->get();
     }
 
     /**
