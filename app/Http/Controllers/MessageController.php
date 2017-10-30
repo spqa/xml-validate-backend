@@ -10,7 +10,9 @@ class MessageController extends Controller
 {
 
     const MESSAGE_RULES = [
-        'message_key' => "required"
+        'message_key' => "required",
+        'code_file_id' => "required",
+        'resource_file_id' => "required"
     ];
 
     const MESSAGE_ADD = "Message added";
@@ -142,13 +144,10 @@ class MessageController extends Controller
             $viResult = Message::where("vi", "like", "%" . $query . "%")->get();
             $keyResult = Message::where("message_key", "like", "%" . $query . "%")->get();
 
-            $totalResult = [
-                "en" => $enResult,
-                "ja" => $jaResult,
-                "vi" => $viResult,
-                "key" => $keyResult
-            ];
-            return $totalResult;
+            $totalResult = $enResult->merge($jaResult)->merge($viResult)->merge($keyResult);
+            return response()->json([
+                "data" => $totalResult
+            ]);
         } else {
             return response()->json([]);
         }

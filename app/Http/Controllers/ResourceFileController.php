@@ -41,12 +41,12 @@ class ResourceFileController extends Controller
             ]);
         }
 
-        $codeFile = new CodeFile();
-        $codeFile->name = $request->get("name");
-        $codeFile->save();
+        $resourceFile = new ResourceFile();
+        $resourceFile->name = $request->get("name");
+        $resourceFile->save();
         return response()->json([
             'error' => false,
-            'message' => sprintf(self::ADD_NEW_RESOURCE_FILE, $codeFile->name)
+            'message' => sprintf(self::ADD_NEW_RESOURCE_FILE, $resourceFile->name)
         ]);
     }
 
@@ -70,7 +70,7 @@ class ResourceFileController extends Controller
      */
     public function update(Request $request, ResourceFile $resourcefile)
     {
-        $validator = Validator::make($request->all(), self::CODE_FILE_RULES);
+        $validator = Validator::make($request->all(), self::RESOURCE_FILE_RULES);
         if ($validator->fails()) {
             return response()->json([
                 'error' => true,

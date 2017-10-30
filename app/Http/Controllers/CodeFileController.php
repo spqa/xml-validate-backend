@@ -12,7 +12,7 @@ class CodeFileController extends Controller
     const ADD_NEW_CODE_FILE = "Added code file %s";
     const UPDATE_CODE_FILE = "Code file %s updated to %s";
     const CODE_FILE_RULES = [
-        'name' => 'required|unique:code_file'
+        'name' => 'required|unique:code_file,name'
     ];
 
     /**
@@ -58,7 +58,9 @@ class CodeFileController extends Controller
      */
     public function update(Request $request, CodeFile $codefile)
     {
-        $validator = Validator::make($request->all(), self::CODE_FILE_RULES);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:code_file,name,' . $request->get("id")
+        ]);
         if ($validator->fails()) {
             return response()->json([
                 'error' => true,
