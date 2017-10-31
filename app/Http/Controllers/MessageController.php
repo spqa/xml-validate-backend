@@ -11,7 +11,6 @@ class MessageController extends Controller
 
     const MESSAGE_RULES = [
         'message_key' => "required",
-        'code_file_id' => "required",
         'resource_file_id' => "required"
     ];
 
