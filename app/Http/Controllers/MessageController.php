@@ -27,6 +27,7 @@ class MessageController extends Controller
         $applied = request("applied");
         $perPage = request("perpage", 20);
         $codeFile = request("codefile");
+        $final = request("final");
         $resourceFile = request("resourcefile");
         $queryBuilder = Message::orderBy("created_at", "desc");
         if ($applied) {
@@ -37,6 +38,9 @@ class MessageController extends Controller
         }
         if ($resourceFile) {
             $queryBuilder->where("resource_file_id", $resourceFile);
+        }
+        if ($final) {
+            $queryBuilder->whereNull("final")->orWhere("final", "");
         }
 
         return $queryBuilder->paginate($perPage);
