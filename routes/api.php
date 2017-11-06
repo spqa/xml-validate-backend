@@ -15,14 +15,18 @@
 //    return $request->user();
 //});
 
-Route::resource("message", "MessageController");
+Route::resource("message", "MessageController")->middleware("apiauth");
 // We will handle create view and edit view by Angular
 Route::resource("codefile", "CodeFileController", [
     'except' => 'create', 'edit'
-]);
+])->middleware("apiauth");
 Route::resource("resourcefile", "ResourceFileController", [
     'except' => 'create', 'edit'
-]);
+])->middleware("apiauth");
 
-Route::get("search/message", "MessageController@search");
+Route::get("search/message", "MessageController@search")->middleware("apiauth");
+
+Route::post("authenticate", "AuthenticateController@authenticate");
+
+
 
