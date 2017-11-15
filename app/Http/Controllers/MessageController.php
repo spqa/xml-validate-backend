@@ -25,12 +25,14 @@ class MessageController extends Controller
     public function index()
     {
         $applied = request("applied");
+        $tested = request("tested");
         $perPage = request("perpage", 20);
         $codeFile = request("codefile");
         $final = request("final");
         $resourceFile = request("resourcefile");
         $queryBuilder = Message::orderBy("created_at", "desc");
-        if ($applied) {
+        // use isset to prevent php consider 0 is false
+        if (isset($applied)) {
             $queryBuilder->where("applied",$applied);
         }
         if ($codeFile) {
@@ -42,7 +44,9 @@ class MessageController extends Controller
         if ($final) {
             $queryBuilder->whereNull("final")->orWhere("final", "");
         }
-
+        if (isset($tested)) {
+            $queryBuilder->where("tested",$tested);
+        }
         return $queryBuilder->paginate($perPage);
     }
 
