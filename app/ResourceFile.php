@@ -15,6 +15,6 @@ class ResourceFile extends Model
 
     public function messages()
     {
-        return $this->hasMany(Message::class, "code_file_id");
+        return $this->hasMany(Message::class, "resource_file_id");
     }
 }

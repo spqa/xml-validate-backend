@@ -15,11 +15,15 @@
 //    return $request->user();
 //});
 
+Route::post("message/import", "MessageController@import")->middleware("apiauth");
+
 Route::resource("message", "MessageController")->middleware("apiauth");
 // We will handle create view and edit view by Angular
 Route::resource("codefile", "CodeFileController", [
     'except' => 'create', 'edit'
 ])->middleware("apiauth");
+
+Route::get("resourcefile/{resourcefile}/messages", "ResourceFileController@messagesIndex")->middleware("apiauth");
 Route::resource("resourcefile", "ResourceFileController", [
     'except' => 'create', 'edit'
 ])->middleware("apiauth");

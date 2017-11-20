@@ -121,6 +121,31 @@ class MessageController extends Controller
 
     }
 
+    public function import(Request $request)
+    {
+        $messages = $request->all();
+//        dd($messages);
+        if (is_array($messages)) {
+            foreach ($messages as $message) {
+                if (!isset($message["resource_file_id"])) continue;
+                $find = Message::where('resource_file_id', $message["resource_file_id"])->where('message_key', $message['message_key'])->first();
+                if ($find) {
+                    $find->update($message);
+                } else {
+                    Message::create($message);
+                }
+            }
+            return response()->json([
+                'error' => false,
+                'message' => "Update Successfully!"
+            ]);
+        };
+        return response()->json([
+            'error' => true,
+            'message' => "Update Error!"
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

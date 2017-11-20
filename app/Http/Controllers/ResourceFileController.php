@@ -97,4 +97,10 @@ class ResourceFileController extends Controller
     {
         //
     }
+
+    public function messagesIndex($resourceFile)
+    {
+        $resource = ResourceFile::findOrFail($resourceFile);
+        return $resource->messages()->get();
+    }
 }
