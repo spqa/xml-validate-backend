@@ -29,6 +29,7 @@ class MessageController extends Controller
         $perPage = request("perpage", 20);
         $codeFile = request("codefile");
         $final = request("final");
+        $customer_support = request("customer_support");
         $resourceFile = request("resourcefile");
         $queryBuilder = Message::orderBy("created_at", "desc");
         // use isset to prevent php consider 0 is false
@@ -46,6 +47,9 @@ class MessageController extends Controller
         }
         if (isset($tested)) {
             $queryBuilder->where("tested",$tested);
+        }
+        if (isset($customer_support)) {
+            $queryBuilder->where("customer_support", $customer_support);
         }
         return $queryBuilder->paginate($perPage);
     }
