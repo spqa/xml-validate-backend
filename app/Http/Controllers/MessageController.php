@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class MessageController extends Controller
@@ -132,7 +133,7 @@ class MessageController extends Controller
         if (is_array($messages)) {
             foreach ($messages as $message) {
                 if (!isset($message["resource_file_id"])) continue;
-                $find = Message::where('resource_file_id', $message["resource_file_id"])->where('message_key', $message['message_key'])->first();
+                $find = Message::where('resource_file_id', $message["resource_file_id"])->where(DB::raw('BINARY `message_key`'), $message['message_key'])->first();
                 if ($find) {
                     $find->update($message);
                 } else {
